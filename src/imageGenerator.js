@@ -39,31 +39,78 @@ async function generateStarImage(repoData, note = '') {
   // Format star count
   const starCount = formatStarCount(repoData.stars);
 
-  // Create simpler SVG without complex filters that might cause issues
+  // Create beautiful SVG with gradient backgrounds and better styling
   const svg = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
     <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
-      <!-- Background -->
-      <rect width="${width}" height="${height}" fill="#2B3137" />
+      <defs>
+        <!-- Background gradient -->
+        <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#2B3137" />
+          <stop offset="100%" stop-color="#1B2025" />
+        </linearGradient>
+        
+        <!-- Star gradient -->
+        <linearGradient id="starGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#FFD700" />
+          <stop offset="100%" stop-color="#FFA500" />
+        </linearGradient>
+        
+        <!-- Simple glow effect that works in SVG without filters -->
+        <linearGradient id="cardGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#2D3339" />
+          <stop offset="100%" stop-color="#1D2227" />
+        </linearGradient>
+      </defs>
 
-      <!-- Center content container -->
-      <rect x="${width * 0.1}" y="${height * 0.1}" width="${width * 0.8}" height="${height * 0.8}" rx="10" fill="#1B2025" stroke="#ffffff10" stroke-width="1" />
+      <!-- Background with gradient -->
+      <rect width="${width}" height="${height}" fill="url(#bgGradient)" />
+      
+      <!-- Decorative elements -->
+      <circle cx="${width * 0.85}" cy="${height * 0.15}" r="50" fill="rgba(255,255,255,0.03)" />
+      <circle cx="${width * 0.15}" cy="${height * 0.85}" r="70" fill="rgba(255,255,255,0.03)" />
+      
+      <!-- Add stars in background -->
+      ${Array.from({ length: 30 }, (_, i) => {
+        const x = Math.random() * width;
+        const y = Math.random() * height;
+        const size = Math.random() * 2 + 1;
+        const opacity = Math.random() * 0.2 + 0.1;
+        return `<circle cx="${x}" cy="${y}" r="${size}" fill="white" opacity="${opacity}" />`;
+      }).join('')}
+
+      <!-- Center content container with gradient -->
+      <rect x="${width * 0.1}" y="${height * 0.1}" width="${width * 0.8}" height="${height * 0.8}" rx="20" 
+        fill="url(#cardGradient)" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
 
       ${note ? `
       <!-- Custom Note -->
-      <text x="50%" y="${height * 0.3}" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white" text-anchor="middle">${note}</text>
+      <text x="50%" y="${height * 0.3}" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="28" 
+        font-weight="bold" fill="white" text-anchor="middle">${note}</text>
       ` : ''}
 
-      <!-- Star count -->
-      <text x="50%" y="${note ? height * 0.5 : height * 0.45}" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="#FFD700" text-anchor="middle">${starCount}</text>
+      <!-- Star count with gradient fill -->
+      <text x="50%" y="${note ? height * 0.5 : height * 0.45}" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" 
+        font-size="80" font-weight="bold" fill="url(#starGradient)" text-anchor="middle">${starCount}</text>
 
-      <!-- Star text -->
-      <text x="50%" y="${note ? height * 0.65 : height * 0.6}" font-family="Arial, sans-serif" font-size="36" fill="white" text-anchor="middle">⭐ STARS</text>
+      <!-- Star icon and text -->
+      <text x="50%" y="${note ? height * 0.65 : height * 0.6}" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" 
+        font-size="40" fill="white" text-anchor="middle">⭐ STARS</text>
 
-      <!-- Repository info -->
-      <text x="50%" y="${height * 0.8}" font-family="Arial, sans-serif" font-size="20" fill="white" text-anchor="middle">${repoData.fullName}</text>
+      <!-- GitHub logo and Repository info -->
+      <g transform="translate(${width/2}, ${height * 0.78})">
+        <!-- GitHub icon -->
+        <svg x="-115" y="-15" width="30" height="30" viewBox="0 0 24 24" fill="white">
+          <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.48 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.268 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.026 2.747-1.026.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.841-2.337 4.687-4.565 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.165 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+        </svg>
+        
+        <!-- Repository name -->
+        <text x="0" y="0" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="22" 
+          fill="white" text-anchor="middle">${repoData.fullName}</text>
+      </g>
 
       <!-- Subtle mkstar branding -->
-      <text x="${width - 20}" y="${height - 10}" font-family="Arial, sans-serif" font-size="12" fill="#bbbbbb" text-anchor="end">mkstar</text>
+      <text x="${width - 25}" y="${height - 15}" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" 
+        font-size="16" fill="#bbbbbb" text-anchor="end">mkstar</text>
     </svg>
   `;
 

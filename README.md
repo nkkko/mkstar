@@ -20,7 +20,7 @@ mkstar is a service that generates shareable square images displaying a GitHub r
 
 ## 🚀 Live Demo
 
-Try the application at: [https://github.com/nkkko/mkstar](https://github.com/nkkko/mkstar)
+Try the application at: [https://mkstar.netlify.app](https://mkstar.netlify.app)
 
 ## 🔧 Installation & Local Development
 
@@ -97,14 +97,14 @@ https://yourdomain.com/generate?url=https://github.com/username/repository&note=
 
 ### Docker Deployment
 
-The easiest way to deploy StarMaker is using Docker:
+The easiest way to deploy mkstar is using Docker:
 
 ```bash
 # Build the Docker image
-docker build -t starmaker .
+docker build -t mkstar .
 
 # Run the container
-docker run -p 5005:5005 starmaker
+docker run -p 5005:5005 mkstar
 ```
 
 Or with docker-compose:
@@ -115,7 +115,7 @@ docker-compose up -d
 
 ### Deploy to Vercel
 
-StarMaker can be deployed to Vercel with a few simple steps:
+mkstar can be deployed to Vercel with a few simple steps:
 
 1. Fork this repository to your GitHub account
 

@@ -5,6 +5,10 @@
 
 [functions]
   node_bundler = "esbuild"
+  
+  [functions.api]
+    included_files = ["node_modules/sharp/**/*"]
+    external_node_modules = ["sharp"]
 
 [[redirects]]
   from = "/*"

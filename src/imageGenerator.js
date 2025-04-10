@@ -125,9 +125,12 @@ async function generateStarImage(repoData, note = '') {
     </svg>
   `;
 
-  // Convert SVG to PNG
-  const imageBuffer = await sharp(Buffer.from(svg))
-    .png()
+  // Convert SVG to PNG with explicit settings to avoid font issues
+  const imageBuffer = await sharp(Buffer.from(svg), { 
+    density: 300,  // Higher density for better quality
+    limitInputPixels: false  // Don't limit input pixels
+  })
+    .png({ compressionLevel: 9 })
     .toBuffer();
 
   // Store in cache (limited to 100 entries to prevent memory issues)

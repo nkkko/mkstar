@@ -1,0 +1,1 @@
+- Do not run npm run dev on your own without explicit request from the user

@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  starmaker:
+    build: .
+    ports:
+      - "5005:5005"
+    environment:
+      - PORT=5005
+      # Uncomment and add your GitHub token if needed
+      # - GITHUB_TOKEN=your_github_token
+    restart: unless-stopped

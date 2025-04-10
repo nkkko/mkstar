@@ -30,7 +30,11 @@ app.get('/generate', async (req, res) => {
     const note = req.query.note || '';
     const imageBuffer = await generateStarImage(repoData, note);
     
-    res.set('Content-Type', 'image/png');
+    // Check if the response is SVG by looking at the first few bytes
+    const isSvg = imageBuffer.toString('utf8', 0, 100).includes('<?xml') || 
+                  imageBuffer.toString('utf8', 0, 100).includes('<svg');
+    
+    res.set('Content-Type', isSvg ? 'image/svg+xml' : 'image/png');
     res.set('Cache-Control', 'public, max-age=300'); // Cache for 5 minutes
     res.send(imageBuffer);
   } catch (error) {
@@ -50,7 +54,11 @@ app.get('/:owner/:repo', async (req, res) => {
     const note = req.query.note || '';
     const imageBuffer = await generateStarImage(repoData, note);
     
-    res.set('Content-Type', 'image/png');
+    // Check if the response is SVG by looking at the first few bytes
+    const isSvg = imageBuffer.toString('utf8', 0, 100).includes('<?xml') || 
+                  imageBuffer.toString('utf8', 0, 100).includes('<svg');
+    
+    res.set('Content-Type', isSvg ? 'image/svg+xml' : 'image/png');
     res.set('Cache-Control', 'public, max-age=300'); // Cache for 5 minutes
     res.send(imageBuffer);
   } catch (error) {

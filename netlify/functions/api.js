@@ -22,11 +22,15 @@ app.get('/generate', async (req, res) => {
     
     const repoData = await fetchRepoData(req.query.url);
     const note = req.query.note || '';
-    const pngBuffer = await generateStarImage(repoData, note);
+    const imageBuffer = await generateStarImage(repoData, note);
     
-    res.set('Content-Type', 'image/png');
+    // Check if the response is SVG by looking at the first few bytes
+    const isSvg = imageBuffer.toString('utf8', 0, 100).includes('<?xml') || 
+                  imageBuffer.toString('utf8', 0, 100).includes('<svg');
+    
+    res.set('Content-Type', isSvg ? 'image/svg+xml' : 'image/png');
     res.set('Cache-Control', 'public, max-age=300');
-    res.send(pngBuffer);
+    res.send(imageBuffer);
   } catch (error) {
     res.status(500).json({ error: error.message || 'Failed to generate image' });
   }
@@ -40,11 +44,15 @@ app.get('/:owner/:repo', async (req, res) => {
     
     const repoData = await fetchRepoData(githubUrl);
     const note = req.query.note || '';
-    const pngBuffer = await generateStarImage(repoData, note);
+    const imageBuffer = await generateStarImage(repoData, note);
     
-    res.set('Content-Type', 'image/png');
+    // Check if the response is SVG by looking at the first few bytes
+    const isSvg = imageBuffer.toString('utf8', 0, 100).includes('<?xml') || 
+                  imageBuffer.toString('utf8', 0, 100).includes('<svg');
+    
+    res.set('Content-Type', isSvg ? 'image/svg+xml' : 'image/png');
     res.set('Cache-Control', 'public, max-age=300');
-    res.send(pngBuffer);
+    res.send(imageBuffer);
   } catch (error) {
     res.status(500).json({ error: error.message || 'Failed to generate image' });
   }

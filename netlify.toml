@@ -5,6 +5,14 @@
 
 [functions]
   node_bundler = "esbuild"
+  
+  [functions.api]
+    included_files = ["node_modules/sharp/**/*"]
+    external_node_modules = ["sharp"]
+    
+[build.environment]
+  # Sharp environment variables for Netlify
+  SHARP_IGNORE_GLOBAL_LIBVIPS = "1"
 
 [[redirects]]
   from = "/*"

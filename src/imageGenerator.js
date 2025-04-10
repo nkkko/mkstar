@@ -1,3 +1,5 @@
+const sharp = require('sharp');
+
 // Cache to store generated images
 const imageCache = new Map();
 
@@ -129,18 +131,42 @@ async function generateStarImage(repoData, note = '') {
     </svg>
   `;
 
-  // Store SVG buffer in cache
-  const svgBuffer = Buffer.from(svg);
-  
-  // Store in cache (limited to 100 entries to prevent memory issues)
-  if (imageCache.size >= 100) {
-    // Remove the oldest entry
-    const firstKey = imageCache.keys().next().value;
-    imageCache.delete(firstKey);
+  // Convert SVG to PNG using Sharp
+  try {
+    // Use a unique cache key for the PNG version
+    const pngCacheKey = `png_${cacheKey}`;
+    
+    // Check if PNG is in cache
+    if (imageCache.has(pngCacheKey)) {
+      return imageCache.get(pngCacheKey);
+    }
+    
+    // Convert SVG to PNG (with safety settings for Netlify)
+    const pngBuffer = await sharp(Buffer.from(svg), {
+      density: 150,  // Lower density to reduce memory usage
+      limitInputPixels: false
+    })
+    .png({
+      compressionLevel: 8,
+      quality: 90
+    })
+    .toBuffer();
+    
+    // Store in cache (limited to 100 entries to prevent memory issues)
+    if (imageCache.size >= 100) {
+      // Remove the oldest entry
+      const firstKey = imageCache.keys().next().value;
+      imageCache.delete(firstKey);
+    }
+    imageCache.set(pngCacheKey, pngBuffer);
+    
+    return pngBuffer;
+  } catch (error) {
+    console.error('Error converting SVG to PNG:', error);
+    // Fallback to SVG if PNG conversion fails
+    const svgBuffer = Buffer.from(svg);
+    return svgBuffer;
   }
-  imageCache.set(cacheKey, svgBuffer);
-
-  return svgBuffer;
 }
 
 module.exports = {

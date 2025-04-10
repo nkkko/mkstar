@@ -30,7 +30,7 @@ app.get('/generate', async (req, res) => {
     const note = req.query.note || '';
     const imageBuffer = await generateStarImage(repoData, note);
     
-    res.set('Content-Type', 'image/svg+xml');
+    res.set('Content-Type', 'image/png');
     res.set('Cache-Control', 'public, max-age=300'); // Cache for 5 minutes
     res.send(imageBuffer);
   } catch (error) {
@@ -50,7 +50,7 @@ app.get('/:owner/:repo', async (req, res) => {
     const note = req.query.note || '';
     const imageBuffer = await generateStarImage(repoData, note);
     
-    res.set('Content-Type', 'image/svg+xml');
+    res.set('Content-Type', 'image/png');
     res.set('Cache-Control', 'public, max-age=300'); // Cache for 5 minutes
     res.send(imageBuffer);
   } catch (error) {

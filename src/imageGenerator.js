@@ -124,6 +124,9 @@ async function generateStarImage(repoData, note = '') {
           <text x="${width/2 - 125}" y="${height * 0.775 + 15}" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="white" letter-spacing="0.5">${repoData.fullName}</text>
         </g>
       </g>
+      
+      <!-- Subtle mkstar branding in bottom right corner -->
+      <text x="${width - 60}" y="${height - 15}" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#ffffff25" text-anchor="end">mkstar</text>
     </svg>
   `;
 

@@ -1,12 +1,12 @@
-# StarMaker
+# mkstar
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/nkkko/starmaker/main/public/images/github.svg" width="100" height="100" />
-  <h1>StarMaker</h1>
+  <img src="https://raw.githubusercontent.com/nkkko/mkstar/main/public/images/github.svg" width="100" height="100" />
+  <h1>mkstar</h1>
   <p>Generate beautiful shareable images of your GitHub repository star count for social media</p>
 </div>
 
-StarMaker is a service that generates shareable square images displaying a GitHub repository's star count. These images are designed for social media sharing to celebrate star count milestones.
+mkstar is a service that generates shareable square images displaying a GitHub repository's star count. These images are designed for social media sharing to celebrate star count milestones.
 
 ## ✨ Features
 
@@ -20,7 +20,7 @@ StarMaker is a service that generates shareable square images displaying a GitHu
 
 ## 🚀 Live Demo
 
-Try the application at: [https://github.com/nkkko/starmaker](https://github.com/nkkko/starmaker)
+Try the application at: [https://github.com/nkkko/mkstar](https://github.com/nkkko/mkstar)
 
 ## 🔧 Installation & Local Development
 
@@ -33,8 +33,8 @@ Try the application at: [https://github.com/nkkko/starmaker](https://github.com/
 
 1. Clone the repository
 ```
-git clone https://github.com/nkkko/starmaker.git
-cd starmaker
+git clone https://github.com/nkkko/mkstar.git
+cd mkstar
 ```
 
 2. Install dependencies

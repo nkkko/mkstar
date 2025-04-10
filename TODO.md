@@ -1,6 +1,6 @@
-# StarMaker - Future Improvements
+# mkstar - Future Improvements
 
-This document outlines potential improvements and new features for the StarMaker application.
+This document outlines potential improvements and new features for the mkstar application.
 
 ## Core Functionality
 

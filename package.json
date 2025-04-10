@@ -1,5 +1,5 @@
 {
-  "name": "starmaker",
+  "name": "mkstar",
   "version": "1.0.0",
   "description": "GitHub Stars Celebration Image Generator",
   "main": "src/index.js",

@@ -1,7 +1,7 @@
-# StarMaker: GitHub Stars Celebration Image Generator
+# mkstar: GitHub Stars Celebration Image Generator
 
 ## Project Overview
-StarMaker is a service that generates shareable square images displaying a GitHub repository's star count. These images are designed for social media sharing to celebrate star count milestones.
+mkstar is a service that generates shareable square images displaying a GitHub repository's star count. These images are designed for social media sharing to celebrate star count milestones.
 
 ## Core Requirements
 

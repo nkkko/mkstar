@@ -32,9 +32,9 @@ async function generateStarImage(repoData, note = '') {
     return imageCache.get(cacheKey);
   }
 
-  // Image dimensions
+  // Image dimensions (1:1 ratio)
   const width = 800;
-  const height = 418;
+  const height = 800;
 
   // Format star count
   const starCount = formatStarCount(repoData.stars);
@@ -84,28 +84,28 @@ async function generateStarImage(repoData, note = '') {
 
       ${note ? `
       <!-- Custom Note -->
-      <text x="50%" y="${height * 0.3}" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="28" 
+      <text x="50%" y="${height * 0.32}" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="32" 
         font-weight="bold" fill="white" text-anchor="middle">${note}</text>
       ` : ''}
 
       <!-- Star count with gradient fill -->
       <text x="50%" y="${note ? height * 0.5 : height * 0.45}" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" 
-        font-size="80" font-weight="bold" fill="url(#starGradient)" text-anchor="middle">${starCount}</text>
+        font-size="120" font-weight="bold" fill="url(#starGradient)" text-anchor="middle">${starCount}</text>
 
       <!-- Star icon and text -->
       <text x="50%" y="${note ? height * 0.65 : height * 0.6}" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" 
-        font-size="40" fill="white" text-anchor="middle">⭐ STARS</text>
+        font-size="48" fill="white" text-anchor="middle">⭐ STARS</text>
 
       <!-- GitHub logo and Repository info -->
-      <g transform="translate(${width/2}, ${height * 0.78})">
+      <g>
         <!-- GitHub icon -->
-        <svg x="-115" y="-15" width="30" height="30" viewBox="0 0 24 24" fill="white">
+        <svg x="${width/2 - 140}" y="${height * 0.75}" width="30" height="30" viewBox="0 0 24 24" fill="white">
           <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.48 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.268 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.026 2.747-1.026.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.841-2.337 4.687-4.565 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.165 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
         </svg>
         
-        <!-- Repository name -->
-        <text x="0" y="0" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="22" 
-          fill="white" text-anchor="middle">${repoData.fullName}</text>
+        <!-- Repository name - adjusted position to align with icon -->
+        <text x="${width/2 - 100}" y="${height * 0.75 + 20}" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-size="22" 
+          fill="white">${repoData.fullName}</text>
       </g>
 
       <!-- Subtle mkstar branding -->

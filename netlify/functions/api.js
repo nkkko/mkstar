@@ -22,11 +22,11 @@ app.get('/generate', async (req, res) => {
     
     const repoData = await fetchRepoData(req.query.url);
     const note = req.query.note || '';
-    const imageBuffer = await generateStarImage(repoData, note);
+    const svgBuffer = await generateStarImage(repoData, note);
     
-    res.set('Content-Type', 'image/png');
+    res.set('Content-Type', 'image/svg+xml');
     res.set('Cache-Control', 'public, max-age=300');
-    res.send(imageBuffer);
+    res.send(svgBuffer);
   } catch (error) {
     res.status(500).json({ error: error.message || 'Failed to generate image' });
   }
@@ -40,11 +40,11 @@ app.get('/:owner/:repo', async (req, res) => {
     
     const repoData = await fetchRepoData(githubUrl);
     const note = req.query.note || '';
-    const imageBuffer = await generateStarImage(repoData, note);
+    const svgBuffer = await generateStarImage(repoData, note);
     
-    res.set('Content-Type', 'image/png');
+    res.set('Content-Type', 'image/svg+xml');
     res.set('Cache-Control', 'public, max-age=300');
-    res.send(imageBuffer);
+    res.send(svgBuffer);
   } catch (error) {
     res.status(500).json({ error: error.message || 'Failed to generate image' });
   }

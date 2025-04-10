@@ -1,10 +1,5 @@
 const sharp = require('sharp');
 const path = require('path');
-const fs = require('fs');
-
-// Read GitHub logo SVG
-const githubLogoPath = path.join(__dirname, '../public/images/github.svg');
-const githubLogoSvg = fs.readFileSync(githubLogoPath, 'utf8');
 
 // Cache to store generated images
 const imageCache = new Map();
